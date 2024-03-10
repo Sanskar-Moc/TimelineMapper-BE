@@ -7,13 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.timelineplanner.TimeLineMapper.DAO.TimeLineDao;
+import com.timelineplanner.TimeLineMapper.DAO.UserDao;
 import com.timelineplanner.TimeLineMapper.model.TimeLine;
+import com.timelineplanner.TimeLineMapper.model.User;
 
 @Service
 public class TimeLineService implements TimeLineServiceInterface {
 	
 	@Autowired
-	private TimeLineDao dao;	
+	private TimeLineDao dao;
+	
+	@Autowired
+	private UserDao userdao;
 	
 	@Override
 	public List<TimeLine> findAll() {
@@ -34,6 +39,27 @@ public class TimeLineService implements TimeLineServiceInterface {
 	public void deleteById(int id) {
 		dao.deleteById(id);
 		return;
+	}
+
+	@Override
+	public List<User> findAllUsers() {
+		return userdao.findAll();
+	}
+
+	@Override
+	public Optional<User> findUserById(String id) {
+		return userdao.findById(id);
+	}
+
+	@Override
+	public User save(User user) {
+		return userdao.save(user);
+	}
+
+	@Override
+	public void deleteById(String id) {
+		userdao.deleteById(id);
+		return;		
 	}
 
 }

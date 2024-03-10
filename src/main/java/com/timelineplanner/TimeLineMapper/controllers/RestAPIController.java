@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.timelineplanner.TimeLineMapper.model.ExceptionResponse;
 import com.timelineplanner.TimeLineMapper.model.TimeLine;
-import com.timelineplanner.TimeLineMapper.service.TimeLineService;
+import com.timelineplanner.TimeLineMapper.model.User;
 import com.timelineplanner.TimeLineMapper.service.TimeLineServiceInterface;
 
 @RestController
@@ -26,6 +26,9 @@ public class RestAPIController {
 	@Autowired
 	private TimeLineServiceInterface service;
 	
+	
+	
+	//Below are TimLine APIs
 	
 	@GetMapping("/findall")
 	public ResponseEntity<List<TimeLine>> getAllTimeLine() {
@@ -63,5 +66,50 @@ public class RestAPIController {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+	
+	
+	
+	//Below are User APIs
+	
+
+	@GetMapping("/user/findall")
+	public ResponseEntity<List<User>> getAllUser() {
+		List<User> user = service.findAllUsers();
+		return ResponseEntity.ok(user);
+	}
+
+	@PostMapping("/user/save")	
+	public ResponseEntity<User> addUser(@RequestBody User user) {
+		User saveduser = service.save(user);
+		return ResponseEntity.status(HttpStatus.CREATED).body(saveduser);
+	}
+
+	@GetMapping("/user/find/{id}")
+	public ResponseEntity<Object> getUserById(@PathVariable String id) {
+		Optional<User> userOptional = service.findUserById(id);
+		if (userOptional.isPresent()) {
+			return ResponseEntity.ok(userOptional.get());
+		} else {
+			ExceptionResponse errorResponse = new ExceptionResponse
+					("User not found", "User with ID " + id + " not found",new Date());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+		}
+	}
+
+	@PutMapping("/user/update/{id}")
+	public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
+		user.setId(id);
+		User updatedUser = service.save(user);
+		return ResponseEntity.ok(updatedUser);
+	}
+
+	@DeleteMapping("/user/delete/{id}")
+	public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+		service.deleteById(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	
 	
 }

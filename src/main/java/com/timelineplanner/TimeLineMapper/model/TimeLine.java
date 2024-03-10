@@ -9,6 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+
+enum State{
+	
+	STARTED,PENDING,FINISHED
+}
+
 @Entity
 public class TimeLine {
 	
@@ -16,32 +22,40 @@ public class TimeLine {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	private String title;	
 	private Date start_time;
 	private Date end_time;
 	private String description; // Agenda or tasks
 	private String report;
 	private Date timestamp;
+	private State state=State.STARTED; 
+	 
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	private User user;
+	private User user;	
+	
 	
 	public TimeLine() {
 		super();
 	}
 	
-	public TimeLine(int id, Date start_time, Date end_time, String description, String report, Date timestamp,
-			User user) {
-		super();
-		this.id = id;
-		this.start_time = start_time;
-		this.end_time = end_time;
-		this.description = description;
-		this.report = report;
-		this.timestamp = timestamp;
-		this.user = user;
+	public State getState() {
+		return state;
 	}
-	
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public int getId() {
 		return id;
 	}
