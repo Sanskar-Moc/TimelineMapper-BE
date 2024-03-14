@@ -10,4 +10,5 @@ public interface TimeLineDao {
 	Optional<TimeLine> findById(int id);
 	public TimeLine save(TimeLine timeline);
 	public void deleteById(int id);
+	public List<TimeLine> findByUserId(String userId);
 }

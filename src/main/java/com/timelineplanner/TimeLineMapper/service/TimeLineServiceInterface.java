@@ -9,6 +9,7 @@ import com.timelineplanner.TimeLineMapper.model.User;
 public interface TimeLineServiceInterface {
 	
 	public List<TimeLine> findAll();
+	public List<TimeLine> userById(String id);
 	Optional<TimeLine> findById(int id);
 	public TimeLine save(TimeLine timeline);
 	public void deleteById(int id);

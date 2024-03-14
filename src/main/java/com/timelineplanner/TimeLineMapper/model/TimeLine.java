@@ -1,6 +1,6 @@
 package com.timelineplanner.TimeLineMapper.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,23 +23,73 @@ public class TimeLine {
 	private int id;
 	
 	private String title;	
-	private Date start_time;
-	private Date end_time;
+	private LocalDateTime start_time;
+	private LocalDateTime end_time;
 	private String description; // Agenda or tasks
 	private String report;
-	private Date timestamp;
+	private LocalDateTime timestamp=LocalDateTime.now();
 	private State state=State.STARTED; 
 	 
+	private String userId;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;	
+//	@ManyToOne
+//	@JoinColumn(name="userId")
+//	private User user;	
 	
 	
 	public TimeLine() {
 		super();
 	}
 	
+	
+	public String getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+	@Override
+	public String toString() {
+		return "TimeLine [id=" + id + ", title=" + title + ", start_time=" + start_time + ", end_time=" + end_time
+				+ ", description=" + description + ", report=" + report + ", timestamp=" + timestamp + ", state="
+				+ state +  "]";
+	}
+
+
+	public LocalDateTime getStart_time() {
+		return start_time;
+	}
+
+
+	public void setStart_time(LocalDateTime start_time) {
+		this.start_time = start_time;
+	}
+
+
+	public LocalDateTime getEnd_time() {
+		return end_time;
+	}
+
+
+	public void setEnd_time(LocalDateTime end_time) {
+		this.end_time = end_time;
+	}
+
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}
+
+
 	public State getState() {
 		return state;
 	}
@@ -64,20 +114,7 @@ public class TimeLine {
 		this.id = id;
 	}
 	
-	public Date getStart_time() {
-		return start_time;
-	}
 	
-	public void setStart_time(Date start_time) {
-		this.start_time = start_time;
-	}
-	
-	public Date getEnd_time() {
-		return end_time;
-	}
-	public void setEnd_time(Date end_time) {
-		this.end_time = end_time;
-	}
 	
 	public String getDescription() {
 		return description;
@@ -95,20 +132,13 @@ public class TimeLine {
 		this.report = report;
 	}
 	
-	public Date getTimestamp() {
-		return timestamp;
-	}
-	
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
-	}	
+//	
+//	public User getUser() {
+//		return user;
+//	}
+//	
+//	public void setUser(User user) {
+//		this.user = user;
+//	}	
 
 }

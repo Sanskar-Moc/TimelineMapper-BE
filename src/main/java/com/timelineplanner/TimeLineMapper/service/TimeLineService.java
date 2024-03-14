@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.timelineplanner.TimeLineMapper.DAO.TimeLineDao;
+import com.timelineplanner.TimeLineMapper.DAO.TimeLineJPARepository;
 import com.timelineplanner.TimeLineMapper.DAO.UserDao;
 import com.timelineplanner.TimeLineMapper.model.TimeLine;
 import com.timelineplanner.TimeLineMapper.model.User;
@@ -60,6 +61,11 @@ public class TimeLineService implements TimeLineServiceInterface {
 	public void deleteById(String id) {
 		userdao.deleteById(id);
 		return;		
+	}
+
+	@Override
+	public List<TimeLine> userById(String id) {
+		return dao.findByUserId(id);
 	}
 
 }
